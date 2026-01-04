@@ -4,17 +4,29 @@ A modern, AI-powered chat application designed to help you understand NSW road r
 
 ## Features
 
-- **AI-Powered Chat**: Uses OpenAI's GPT models to provide helpful information about NSW road rules, traffic regulations, and safe driving practices.
-- **RAG (Retrieval-Augmented Generation)**: Semantic search over the comprehensive NSW Road User Handbook for accurate, consistent responses based on official rules.
-- **Modern UI**: A sleek, responsive interface built with Tailwind CSS, featuring an accessible 60-30-10 color palette and smooth animations.
+### AI-Powered Knowledge Base
+- **RAG (Retrieval-Augmented Generation)**: Every answer is grounded in the official NSW Road User Handbook
+- **Hybrid Search**: Combines semantic similarity with keyword matching for better accuracy
+  - Semantic embeddings using OpenAI's `text-embedding-3-small` model
+  - Keyword boosting ensures specific terms like "alcohol interlock" or "demerit points" are found
+  - Returns top 5 most relevant chunks with similarity scores
+- **Automatic Knowledge Retrieval**: AI automatically searches the knowledge base for all NSW road rules questions
+- **Transparent Sourcing**: Responses indicate when information comes from official NSW sources
+
+### Modern User Interface
+- **Accessible Design**: WCAG AAA compliant color palette using 60-30-10 design principles
+  - Primary: NSW Blue (#0066CC) - 30% coverage, 9.67:1 contrast ratio
+  - Background: Off-white (#FAFAFA) - 60% coverage
+  - Accents: Green/Red/Amber for traffic-light semantics - 10% coverage
 - **Inspiration System**:
-  - **Welcome Grid**: Browse categories (Licences & Getting Started, Traffic Rules & Priorities, Safe Driving, Lanes & Road Markings, Parking & Special Situations) to get started.
-  - **Collapsible Suggestions**: Access inspiration questions anytime via the "Sparkles" button in the input bar.
-  - **Smart Pills**: Clickable question pills that wrap naturally for easy selection.
+  - **Welcome Grid**: Browse 5 categories with 25+ suggested questions
+  - **Collapsible Suggestions**: Access inspiration anytime via the "Sparkles" button
+  - **Smart Pills**: Clickable question pills that wrap naturally
 - **Rich Interactions**:
-  - **Typewriter Effect**: AI responses appear smoothly with a dynamic typing speed based on length.
-  - **Smooth Animations**: Chat bubbles slide and fade in for a natural feel.
-  - **Visual Clarity**: Distinct icons for User and Bot to easily follow the conversation.
+  - **Typewriter Effect**: Dynamic typing speed based on response length
+  - **Smooth Animations**: Chat bubbles slide and fade in naturally
+  - **Visual Clarity**: Distinct icons (User/Bot) for easy conversation flow
+  - **Input Sanitization**: XSS protection and content validation for security
 
 ## Tech Stack
 
@@ -27,21 +39,36 @@ A modern, AI-powered chat application designed to help you understand NSW road r
 
 ## Knowledge Base (RAG)
 
-The application uses a Retrieval-Augmented Generation (RAG) approach to provide accurate information:
+The application uses an advanced Retrieval-Augmented Generation (RAG) approach to provide accurate, authoritative information:
 
-1. **Knowledge Base**: Comprehensive markdown documentation in `public/knowledge/Road-User-Handbook-English.md`
-2. **Semantic Search**: Uses OpenAI embeddings (`text-embedding-3-small`) with cosine similarity
-3. **Function Calling**: The AI automatically retrieves relevant information when answering questions
+### Architecture
+
+1. **Knowledge Source**: NSW Road User Handbook (4,600+ lines) in `public/knowledge/Road-User-Handbook-English.md`
+2. **Chunking**: Markdown parsed into semantic chunks by category and topic (209 chunks)
+3. **Embedding**: Each chunk embedded using OpenAI's `text-embedding-3-small` model (1,536 dimensions)
+4. **Hybrid Search**:
+   - **Semantic similarity**: Cosine similarity between query and chunk embeddings
+   - **Keyword matching**: Exact term matching with boost scoring (0.1 per keyword, max 0.3)
+   - **Combined ranking**: Best of both approaches for superior recall
+5. **Function Calling**: AI automatically invokes `search_knowledge` for all NSW road rules questions
+6. **Safeguards**: Detects and blocks malformed AI responses, ensuring clean output to users
+
+### Search Parameters
+
+- **Top-K**: Returns 5 most relevant chunks
+- **Minimum Similarity**: 0.15 threshold (lowered for better recall)
+- **Keyword Filter**: Only keywords > 3 characters
+- **Context Size**: Up to ~5,000 characters of official handbook content per query
 
 ### Generating Embeddings
 
-Pre-compute embeddings for faster responses:
+Pre-compute embeddings for faster responses and reduced API calls:
 
 ```bash
 OPENAI_API_KEY=your-key npm run generate-embeddings
 ```
 
-This creates `public/knowledge/embeddings.json` with pre-computed embeddings. If not present, embeddings are generated on-demand.
+This creates `public/knowledge/embeddings.json` with pre-computed embeddings. If not present, embeddings are generated on-demand (slower first request, then cached).
 
 ## Local Development
 
@@ -60,9 +87,15 @@ This creates `public/knowledge/embeddings.json` with pre-computed embeddings. If
    Create a `.dev.vars` file in the root directory:
    ```env
    OPENAI_API_KEY=your_openai_api_key_here
+   OPENAI_MODEL=gpt-5-mini  
    ```
 
-4. **Start the development server**
+4. **Generate Embeddings** (Optional but recommended)
+   ```bash
+   OPENAI_API_KEY=your-key npm run generate-embeddings
+   ```
+
+5. **Start the development server**
    ```bash
    npm start
    ```
@@ -96,9 +129,30 @@ This project is designed to be deployed on **Cloudflare Pages**.
 4. **Environment Variables**:
    - In the Cloudflare Pages dashboard for your project, go to **Settings** > **Environment variables**.
    - Add `OPENAI_API_KEY` with your production API key.
-   - **Note**: For production, ensure your API key has usage limits set in the OpenAI dashboard.
+   - Add `OPENAI_MODEL` with your chosen model (e.g., `gpt-5-mini` or `gpt-5-nano`)
+   - **Important**: Ensure your API key has usage limits set in the OpenAI dashboard for production.
 
 5. **Deploy**: Click **Save and Deploy**. Cloudflare will build and deploy your site globally.
+
+## Recent Improvements
+
+### Hybrid Search (January 2026)
+- Implemented keyword matching alongside semantic search
+- Increased top-K from 3 to 5 results
+- Lowered similarity threshold from 0.2 to 0.15 for better recall
+- Added keyword boost scoring (0.1 per match, max 0.3)
+- Result: Specific terms like "alcohol interlock" and "demerit points" now found reliably
+
+### Enhanced System Prompt
+- AI now required to always search knowledge base for NSW road rules questions
+- Responses clearly indicate when using official NSW sources
+- Fallback messaging when knowledge base doesn't contain specific information
+
+### Security & Stability
+- Input sanitization for XSS protection
+- Safeguards to detect and block malformed AI responses
+- Error handling with user-friendly messages
+- Content validation on all user inputs
 
 ## Project Structure
 
@@ -120,4 +174,4 @@ This project is designed to be deployed on **Cloudflare Pages**.
 └── vitest.config.ts
 ```
 
-Created with Antigravity and Claude Opus 4.5.
+Created with Antigravity and Claude Opus 4.5, as an excercise in building a RAG application with a simple embeddings JSON (instead of vector database), hosted on Cloudflare Pages.
