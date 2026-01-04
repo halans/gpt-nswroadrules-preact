@@ -53,6 +53,39 @@ The application uses a simple Retrieval-Augmented Generation (RAG) approach to p
 5. **Function Calling**: AI automatically invokes `search_knowledge` for all NSW road rules questions
 6. **Safeguards**: Detects and blocks malformed AI responses, ensuring clean output to users
 
+```
++--------+        HTTPS         +------------------------------+
+| User   | <------------------> |  Preact UI (browser)          |
++--------+                      |  public/Chat.tsx, index.tsx   |
+                                +---------------+--------------+
+                                                |
+                                                | fetch /api/chat (Pages Function)
+                                                v
+                                +---------------+--------------+
+                                | Cloudflare Pages Function    |
+                                | functions/chat.ts            |
+                                +-------+-----------+----------+
+                                        |           |
+                     read static asset   |           | read static asset
+                  /knowledge/embeddings  |           | /knowledge/*.md
+                                        v           v
+                         +--------------+--+   +----+-------------------+
+                         | embeddings.json |   | Road-User-Handbook.md  |
+                         | (precomputed)   |   | (source context)       |
+                         +-----------------+   +------------------------+
+                                        |
+                                        | call OpenAI (chat/embeddings)
+                                        v
+                                +-------+----------------------+
+                                | OpenAI API                   |
+                                +------------------------------+
+                                        |
+                                        v
+                                +-------+----------------------+
+                                | Answer JSON -> UI            |
+                                +------------------------------+
+```
+
 ### Search Parameters
 
 - **Top-K**: Returns 5 most relevant chunks
