@@ -5,7 +5,7 @@ A modern, AI-powered chat application designed to help you understand NSW road r
 ## Features
 
 ### AI-Powered Knowledge Base
-- **RAG (Retrieval-Augmented Generation)**: Every answer is grounded in the official NSW Road User Handbook
+- **RAG (Retrieval-Augmented Generation)**: Every answer is grounded in the official NSW Road User Handbook (PDF converted to markdown)
 - **Hybrid Search**: Combines semantic similarity with keyword matching for better accuracy
   - Semantic embeddings using OpenAI's `text-embedding-3-small` model
   - Keyword boosting ensures specific terms like "alcohol interlock" or "demerit points" are found
@@ -159,8 +159,8 @@ This project is designed to be deployed on **Cloudflare Pages**.
 ```
 ├── public/
 │   ├── knowledge/          # RAG knowledge base
-│   │   ├── Road-User-Handbook-English.md  # NSW Road User Handbook
-│   │   └── embeddings.json    # Pre-computed embeddings (generated)
+│   │   ├── Road-User-Handbook-English.md  # NSW Road User Handbook (247KB)
+│   │   └── embeddings.json    # Pre-computed embeddings (generated - 7.1MB)
 │   ├── Chat.tsx            # Main chat component
 │   └── index.tsx           # App entry point
 ├── functions/
@@ -174,4 +174,4 @@ This project is designed to be deployed on **Cloudflare Pages**.
 └── vitest.config.ts
 ```
 
-Created with Antigravity and Claude Opus 4.5, as an excercise in building a RAG application with a simple embeddings JSON (instead of vector database), hosted on Cloudflare Pages.
+Created with Antigravity and Claude Code with Claude Opus 4.5, as an excercise in building a RAG application with a simple embeddings JSON (instead of vector database) for grounded responses, hosted on Cloudflare Pages.
