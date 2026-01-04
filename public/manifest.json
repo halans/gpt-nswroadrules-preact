@@ -1,0 +1,12 @@
+{
+  "name": "NSW ROAD RULES CHAT",
+  "short_name": "RoadRules",
+  "lang": "en-AU",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#0066CC",
+  "description": "AI-powered NSW road rules and driving advice",
+  "icons": [],
+  "orientation": "landscape"
+}

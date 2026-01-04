@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 60% - Dominant/Background Colors */
+    --background: 0 0% 98%;
+    /* #FAFAFA - Off-white, reduces eye strain */
+    --foreground: 222.2 84% 4.9%;
+    /* #020617 - Near black */
+
+    --card: 0 0% 100%;
+    /* #FFFFFF - Pure white for cards */
+    --card-foreground: 222.2 84% 4.9%;
+    /* #020617 */
+
+    --secondary: 210 40% 96.1%;
+    /* #F1F5F9 - Light blue-gray */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* #0F172A */
+
+    /* 30% - Secondary/Interactive Colors */
+    --primary: 210 100% 45%;
+    /* #0066CC - NSW Blue (WCAG AAA: 9.67:1) */
+    --primary-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --muted: 210 25% 92%;
+    /* #E5EBF1 - Muted blue */
+    --muted-foreground: 215.4 16.3% 46.9%;
+    /* #64748B */
+
+    --border: 210 20% 88%;
+    /* #D9E2EC - Subtle borders */
+    --input: 210 20% 88%;
+    /* #D9E2EC */
+    --ring: 210 100% 45%;
+    /* #0066CC - Focus ring matches primary */
+
+    /* 10% - Accent/Status Colors */
+    --accent: 142 71% 45%;
+    /* #22C55E - Green for success/go signals (WCAG AA: 4.54:1) */
+    --accent-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --destructive: 0 72% 51%;
+    /* #DC2626 - Red for errors/stop (WCAG AAA Large: 5.94:1) */
+    --destructive-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --warning: 38 92% 50%;
+    /* #F59E0B - Amber for caution (WCAG AA Large: 3.11:1) */
+    --warning-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --popover: 0 0% 100%;
+    /* #FFFFFF */
+    --popover-foreground: 222.2 84% 4.9%;
+    /* #020617 */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* 60% - Dominant/Background Colors */
+    --background: 222.2 84% 4.9%;
+    /* #020617 - Dark blue-black */
+    --foreground: 210 40% 98%;
+    /* #F8FAFC - Off-white */
+
+    --card: 222.2 84% 4.9%;
+    /* #020617 */
+    --card-foreground: 210 40% 98%;
+    /* #F8FAFC */
+
+    --secondary: 217.2 32.6% 17.5%;
+    /* #1E293B - Dark slate */
+    --secondary-foreground: 210 40% 98%;
+    /* #F8FAFC */
+
+    /* 30% - Secondary/Interactive Colors */
+    --primary: 210 100% 60%;
+    /* #3399FF - Lighter NSW Blue for dark mode */
+    --primary-foreground: 222.2 84% 4.9%;
+    /* #020617 */
+
+    --muted: 217.2 32.6% 17.5%;
+    /* #1E293B */
+    --muted-foreground: 215 20.2% 65.1%;
+    /* #94A3B8 */
+
+    --border: 217.2 32.6% 17.5%;
+    /* #1E293B */
+    --input: 217.2 32.6% 17.5%;
+    /* #1E293B */
+    --ring: 210 100% 60%;
+    /* #3399FF */
+
+    /* 10% - Accent/Status Colors */
+    --accent: 142 76% 45%;
+    /* #16A34A - Darker green for dark mode */
+    --accent-foreground: 210 40% 98%;
+    /* #F8FAFC */
+
+    --destructive: 0 84% 60%;
+    /* #EF4444 - Lighter red for dark mode */
+    --destructive-foreground: 210 40% 98%;
+    /* #F8FAFC */
+
+    --warning: 38 92% 50%;
+    /* #F59E0B - Same amber works in both modes */
+    --warning-foreground: 222.2 84% 4.9%;
+    /* #020617 */
+
+    --popover: 222.2 84% 4.9%;
+    /* #020617 */
+    --popover-foreground: 210 40% 98%;
+    /* #F8FAFC */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Markdown Styles */
+.prose p {
+  @apply mb-2 leading-relaxed;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-2 ml-2;
+}
+
+.prose ol {
+  @apply list-decimal list-inside mb-2 ml-2;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
