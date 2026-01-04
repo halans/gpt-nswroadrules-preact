@@ -543,7 +543,7 @@ export const Chat = () => {
               ref={textareaRef}
               id="question"
               className="flex-1 bg-transparent border-none outline-none px-4 py-4 text-base placeholder:text-muted-foreground resize-none overflow-hidden"
-              placeholder="Your NSW road rules question..."
+              placeholder="Your NSW road rules question"
               value={input}
               onInput={(e) => {
                 setInput((e.target as any)?.value ?? "");
@@ -579,9 +579,7 @@ export const Chat = () => {
           </p>
           <p className="text-center text-xs text-muted-foreground results-container">
             Information sourced from the <a href="https://www.nsw.gov.au/driving-boating-and-transport/roads-safety-and-rules/safety-updates-for-nsw-road-users/road-user-handbook" target="_blank" rel="noreferrer">NSW Road User Handbook</a><br/>
-            Made with &hearts; in <a href="http://madewithlove.in/sydney/" target="_blank" rel="noreferrer">Sydney</a>, Australia.<br />
-            &copy; 2024 - <span id="fYear"><noscript>2025</noscript></span>
-            <script>document.getElementById("fYear").innerText = new Date().getFullYear();</script> Not affiliated with <a href="https://roadsafety.transport.nsw.gov.au/" target="_blank" rel="noreferrer">Transport for NSW</a> or <a href="https://status.openai.com" target="_blank" rel="noreferrer">OpenAI</a>.<br />
+            &copy; 2026 - Not affiliated with <a href="https://roadsafety.transport.nsw.gov.au/" target="_blank" rel="noreferrer">Transport for NSW</a> or <a href="https://status.openai.com" target="_blank" rel="noreferrer">OpenAI</a>.<br />
             <br />&nbsp;
           </p>
         </div>
