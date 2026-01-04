@@ -1290,11 +1290,11 @@ body{
 
 /* Markdown Styles */
 
-.prose p{
+.prose p {
   margin-bottom: 0.5rem;
   line-height: 1.625;
 }
-.prose ul>li>p{
+.prose ul>li>p {
   font-weight: bolder;
   margin-bottom: 0;
   line-height: normal;
