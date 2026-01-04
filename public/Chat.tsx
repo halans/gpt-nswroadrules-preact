@@ -543,7 +543,7 @@ export const Chat = () => {
               ref={textareaRef}
               id="question"
               className="flex-1 bg-transparent border-none outline-none px-4 py-4 text-base placeholder:text-muted-foreground resize-none overflow-hidden"
-              placeholder="Ask anything about NSW road rules..."
+              placeholder="Your NSW road rules question..."
               value={input}
               onInput={(e) => {
                 setInput((e.target as any)?.value ?? "");
