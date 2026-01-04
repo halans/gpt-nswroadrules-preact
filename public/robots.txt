@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nswroadrules.ai/sitemap.xml
+Sitemap: https://roadrules.halans.dev/sitemap.xml
