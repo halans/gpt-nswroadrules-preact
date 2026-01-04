@@ -39,7 +39,7 @@ A modern, AI-powered chat application designed to help you understand NSW road r
 
 ## Knowledge Base (RAG)
 
-The application uses an advanced Retrieval-Augmented Generation (RAG) approach to provide accurate, authoritative information:
+The application uses a simple Retrieval-Augmented Generation (RAG) approach to provide accurate, authoritative information:
 
 ### Architecture
 
